@@ -1,0 +1,23 @@
+<div class="sesiones">
+  <h2>Sesiones</h2>
+
+  <!-- <div>{{ musicEvent | json }}</div> -->
+  <!-- <h1>{{ musicEvent.event?.id }}</h1> -->
+  <div class="sesion-fila" *ngFor="let sessions of musicEvent.sessions">
+    <!-- Componente? -->
+    <div>
+      Fecha: {{ sessions.date | date : "dd/MM/yyyy" }}, Disponibilidad:
+      {{ sessions.availability }}
+    </div>
+
+    <div class="sesion-acciones">
+      <button (click)="setSelectedTicket(-1)" class="btn">-</button>
+      <!-- {{ selectedTicket$ | async }} -->
+      {{ selectedTicket }}
+      <button (click)="setSelectedTicket(1)" class="btn">+</button>
+    </div>
+    <!-- Componente? -->
+  </div>
+  <!-- <h2>Del observable Persona</h2>
+  <p>{{ (data$ | async)?.name }}</p> -->
+</div>

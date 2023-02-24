@@ -1,0 +1,27 @@
+.sesiones {
+    text-align: center;
+    border: 1px solid #b0b0b0;
+    height: 100%;
+}
+
+.sesion-fila {
+    display: flex;
+    justify-content: space-around;
+    margin: 10px 0;
+}
+
+.sesion-acciones {
+    display: flex;
+    justify-content: space-evenly;
+    width: 20%;
+}
+
+.sesion-acciones .btn {
+    /* width: 100%; */
+    display: flex;
+    justify-content: center;
+    background-color: transparent;
+    border: none;
+    color: #008cba;
+    font-size: large;
+}

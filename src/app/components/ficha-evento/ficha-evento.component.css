@@ -1,0 +1,21 @@
+.ficha-evento-container {
+    margin: 50px 0;
+}
+
+.link {
+    display: flex;
+    justify-content: right;
+    margin: 20px 100px;
+}
+
+.ficha-evento {
+    display: flex;
+    justify-content: space-around;
+    flex-direction: column;
+    margin: 50px 20px;
+    gap: 50px;
+}
+
+.ficha-evento app-sesiones, .ficha-evento app-carrito {
+    width: 100%;
+}
