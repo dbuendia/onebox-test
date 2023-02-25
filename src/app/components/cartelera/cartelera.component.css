@@ -27,8 +27,8 @@
 
 .music-event__description {
     margin: 10px;
-    /* TODO REVISAR HEIGHT EN MEDIUM DEVICES */
     height: 80px;
+    overflow-y: scroll;
 }
 
 .music-event__action-btn {
