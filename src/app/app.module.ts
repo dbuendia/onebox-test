@@ -9,6 +9,8 @@ import { FichaEventoComponent } from './components/ficha-evento/ficha-evento.com
 import { CarritoComponent } from './carrito/carrito.component';
 import { SesionesComponent } from './sesiones/sesiones.component';
 import { HttpClientModule } from '@angular/common/http';
+import { NotFoundComponent } from './components/not-found/not-found.component';
+import { HomeComponent } from './components/home/home.component';
 
 @NgModule({
   declarations: [
@@ -17,7 +19,9 @@ import { HttpClientModule } from '@angular/common/http';
     FichaEventoComponent,
     HeaderComponent,
     CarritoComponent,
-    SesionesComponent
+    SesionesComponent,
+    NotFoundComponent,
+    HomeComponent
   ],
   imports: [
     BrowserModule,

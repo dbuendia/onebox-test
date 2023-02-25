@@ -1,0 +1,13 @@
+app-cartelera {
+    display: flex;
+    flex-wrap: wrap;
+    max-width: 90%;
+    margin: 50px;
+}
+
+@media only screen and (max-width: 600px) {
+    app-cartelera {
+        flex-direction: column;
+    }
+}
+

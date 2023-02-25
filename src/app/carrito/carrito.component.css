@@ -1,5 +1,5 @@
 .carrito {
     text-align: center;
-    border: 1px solid #b0b0b0;
+    border: 1px solid var(--grey);
     height: 100%;
 }

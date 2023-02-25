@@ -1,1 +1,36 @@
-<p>cartelera works!</p>
+<!-- <button routerLink="/ficha-evento">Comprar / Ficha Evento</button> -->
+
+<div class="sesion-fila" *ngFor="let event of events; let i = index">
+  <article class="music-event">
+    <h4 class="music-event__title" [routerLink]="['/ficha-evento/', event.id]">
+      {{ event.title }}
+    </h4>
+    <p
+      class="music-event__subtitle"
+      [routerLink]="['/ficha-evento/', event.id]"
+    >
+      {{ event.subtitle }}
+    </p>
+    <img
+      class="music-event__image"
+      src="{{ event.image }}"
+      alt="Imagen del evento de {{ event.title }}"
+      [routerLink]="['/ficha-evento/', event.id]"
+    />
+
+    <div class="music-event__details">
+      <span
+        >{{ event.startDate | date : "dd/MM/yyyy" }} -
+        {{ event.endDate | date : "dd/MM/yyyy" }}</span
+      >
+      <p>{{ event.place }}</p>
+    </div>
+    <p class="music-event__description" [innerHTML]="event.description"></p>
+    <button
+      class="music-event__action-btn"
+      [routerLink]="['/ficha-evento/', event.id]"
+    >
+      COMPRAR
+    </button>
+  </article>
+</div>

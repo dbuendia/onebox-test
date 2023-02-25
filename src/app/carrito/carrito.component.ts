@@ -9,9 +9,9 @@ import { SharingService } from '../services/sharing.service';
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class CarritoComponent {
-  selectedTicket$: Observable<number>
+  //selectedTicket$: Observable<number>
 
   constructor(sharingService: SharingService) {
-    this.selectedTicket$ = sharingService.getSelectedTicket;
+    //this.selectedTicket$ = sharingService.getSelectedTicket;
   }
 }

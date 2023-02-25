@@ -22,6 +22,6 @@
     justify-content: center;
     background-color: transparent;
     border: none;
-    color: #008cba;
+    color: var(--light-blue);
     font-size: large;
 }

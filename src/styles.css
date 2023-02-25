@@ -5,3 +5,9 @@
     font-family: Arial, Helvetica, sans-serif;
 }
 
+:root {
+    --light-blue: #008cba;
+    --header-blue: #87cce9;
+    --white: #FFFFFF;
+    --grey: #b0b0b0;
+}

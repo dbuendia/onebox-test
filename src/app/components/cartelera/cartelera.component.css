@@ -1,0 +1,51 @@
+.sesion-fila {
+   width: 50%;
+   margin: 10px 0;
+}
+
+.music-event {
+    border: 1px solid;
+    margin: 10px;
+}
+
+.music-event__title, .music-event__subtitle {
+    color: var(--light-blue);
+    margin: 15px 10px;
+}
+
+.music-event__title:hover, .music-event__subtitle:hover, .music-event__image:hover {
+    cursor: pointer;
+}
+
+.music-event__image {
+    width: 100%;
+}
+
+.music-event__details {
+    margin: 10px;
+}
+
+.music-event__description {
+    margin: 10px;
+    /* TODO REVISAR HEIGHT EN MEDIUM DEVICES */
+    height: 80px;
+}
+
+.music-event__action-btn {
+    width: 100%;
+    height: 50px;
+    border: none;
+    background-color: var(--light-blue);
+    color: var(--white);
+    cursor: pointer;
+}
+
+@media only screen and (max-width: 600px) {
+    .sesion-fila {
+        width: 100%;
+    }
+
+    .music-event__description {
+        display: none;
+    }
+}
