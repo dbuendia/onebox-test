@@ -3,3 +3,31 @@
     border: 1px solid var(--grey);
     height: 100%;
 }
+
+.carrito__title {
+    margin: 10px 15px;
+}
+
+.carrito__event-title {
+    text-align: left;
+    margin-left: 30px;
+}
+
+.carrito__date {
+    margin: 10px 30px;
+    gap: 10px;
+}
+
+.carrito__selected-tickets div {
+    display: flex;
+    justify-content: space-between;
+}
+
+.carrito__quantity {
+    display: flex;
+    justify-content: space-around;
+    width: 50px;
+}
+.carrito__trash-icon {
+    width: 20px;
+}

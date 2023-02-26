@@ -1,5 +1,4 @@
 import { ChangeDetectionStrategy, ChangeDetectorRef, Component } from '@angular/core';
-import { ApiService } from '../services/api.service';
 import { SharingService } from '../services/sharing.service';
 import { MusicEvent } from '../interfaces/music-event';
 import { ActivatedRoute } from '@angular/router';
@@ -11,56 +10,51 @@ import { ActivatedRoute } from '@angular/router';
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class SesionesComponent {
-
   musicEvent: MusicEvent = {};
-
-  // 3. Variable local con el contenido del observable
-  selectedTicket: number = 0;
   eventId: number = 0;
 
   constructor(
-    private api: ApiService,
-    // 1. Inyecto servicio
     private sharingService: SharingService,
     private cdr: ChangeDetectorRef,
     private actRoute: ActivatedRoute) {
-    //this.getMusicEvent();
-    // 2. Me subcribo al servicio y accedo al contenido del observable en una variable local
-    // this.sharingService.getSelectedTicket.subscribe((value) => {
-    //   this.selectedTicket = value;
-    // })
-    // this.selectedTicket$ = sharingService.sharingSelectedTicket;
   }
 
-  // 4. Setter
-  //   setSelectedTicket(value: number) {
-  //   if ((this.selectedTicket + value) < 0) {
-  //     return;
-  //   } else if ((this.selectedTicket + value) > Number(this.musicEvent.sessions?.[0].availability)) {
-  //     return;
-  //   } else {
-  //     this.sharingService.setSelectedTicket = this.selectedTicket + value;
-  //   }
-  // }
-
-  // 5. Si necesito varios observables, ¿creo un observable del contenido de todo el json?
-
-  // Este ID lo tendré que coger de la URL a la que accederé con cada botón
   ngOnInit() {
-    this.eventId = this.actRoute.snapshot.params['id'];
-    this.getMusicEvent(this.eventId);
+    // this.sharingService.setMusicEvent(this.actRoute.snapshot.params['id'])
+    this.getCurrentEvent();
   }
+  
+  setSelectedTicket(dateEvent: string, quantity: number) {
+    // TENGO QUE VER LAS ENTRADAS SELECCIONADAS
+    // TENGO QUE IR A SESION CON EL DATE EVENT Y SELECTED TICKET
 
-  // escoger id de la ruta y pasarlo por aqui
-  // get music event devuelve una promesa, por eso el .then
-  // la promesa nos devuelve el observable, para suscribirnos
-  // y dentro del observable está el evento guuurl...
-    getMusicEvent(id: number) {
-      this.sharingService.getMusicEvent(id).then((stateSubscription) => {
-        stateSubscription.subscribe((event) => {
-          this.musicEvent = event;
-          this.cdr.detectChanges(); // o this.cdr.markForCheck(); https://www.youtube.com/watch?v=JVuglXmslv4
-        });
-      })
-    }
+    // what is this actually doing? selectedEVent is not being used
+    // const selectedEvent = this.musicEvent.sessions?.filter((elem) => {
+    //   if (elem.date === dateEvent) {
+    //   return true;
+    //   } else {
+    //     return false;
+    //   }
+    // });
+
+    // QUERIA PUTO MIRARLO ANTES DE UPDATE, pero no se. Esrto no pinta bien
+    // if(selectedEvent?.[0].selectedTickets) {
+    //   console.log((selectedEvent?.[0].selectedTickets + quantity) <= 0);
+    // }
+      this.sharingService.updateMusicEvent(dateEvent, quantity);
+}
+
+
+  // Con esta función nos suscribimos al observable de details de la store y podemos leer nuestra variable local
+  // Solo details!
+  getCurrentEvent() {
+    this.sharingService.getCurrentEvent.subscribe((event) => {
+      // Hay que borrar de la store ANTES de llamar a esta función (porque si no me traigo datos malos)
+      //console.log(event);
+      this.musicEvent = event
+      // this.musicEvent.sessions;
+      this.cdr.markForCheck();
+      // this.cdr.detectChanges(); // o this.cdr.markForCheck(); https://www.youtube.com/watch?v=JVuglXmslv4
+    })
   }
+}

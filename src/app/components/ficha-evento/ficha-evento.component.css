@@ -11,11 +11,16 @@
 .ficha-evento {
     display: flex;
     justify-content: space-around;
-    flex-direction: column;
-    margin: 50px 20px;
-    gap: 50px;
+    margin: 50px 50px;
+    gap: 10px;
 }
 
 .ficha-evento app-sesiones, .ficha-evento app-carrito {
     width: 100%;
+}
+
+@media only screen and (max-width: 800px) {
+    .ficha-evento {
+        flex-direction: column;
+    }
 }

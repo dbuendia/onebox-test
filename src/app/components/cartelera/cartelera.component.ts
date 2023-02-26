@@ -25,7 +25,6 @@ export class CarteleraComponent {
         events.sort((a, b) => {
           return a.endDate >= b.endDate ? 1 : -1
       });
-
       if (events.length) {
         this.events = events;
       }

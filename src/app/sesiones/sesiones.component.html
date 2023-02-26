@@ -1,25 +1,32 @@
-<div class="sesiones">
-  <h2>Sesiones</h2>
+<div class="session-list">
+  <h2 class="session-list__title">Sesiones</h2>
 
   <!-- <div>{{ musicEvent | json }}</div> -->
   <!-- <h1>{{ musicEvent.event?.id }}</h1> -->
-  <div
-    class="sesion-fila"
-    *ngFor="let sessions of musicEvent.sessions; let i = index"
-  >
-    <!-- Componente? -->
-    <div>
-      Fecha: {{ sessions.date | date : "dd/MM/yyyy" }}, Disponibilidad:
-      {{ sessions.availability }}
-    </div>
+  <!-- Puedo usar esto si el sharingService es public -->
+  <!-- <div *ngIf="sharingService.state.details.sessions; else noSessions"> -->
+  <!-- Si no, tengo que ver que sessions esté vacío, cada vez que volvemos a home o algo así, reescribirlo y: -->
+  <div *ngIf="musicEvent.sessions; else noSessions">
+    <div
+      class="session-list__item-content"
+      *ngFor="let sessions of musicEvent.sessions; let i = index"
+    >
+      <div>
+        Fecha: {{ sessions.date | date : "dd/MM/yyyy" }}, Disponibilidad:
+        {{ sessions.availability }}
+      </div>
 
-    <!-- <div class="sesion-acciones">
-      <button (click)="setSelectedTicket(-1)" class="btn">-</button>
-      {{ selectedTicket }}
-      <button (click)="setSelectedTicket(1)" class="btn">+</button>
-    </div> -->
-    <!-- Componente? -->
+      <div class="session-list__actions">
+        <button class="btn" (click)="setSelectedTicket(sessions.date, -1)">
+          -
+        </button>
+        {{ sessions.selectedTickets }}
+        <button class="btn" (click)="setSelectedTicket(sessions.date, 1)">
+          +
+        </button>
+      </div>
+    </div>
   </div>
-  <!-- <h2>Del observable Persona</h2>
-  <p>{{ (data$ | async)?.name }}</p> -->
 </div>
+
+<ng-template #noSessions><p>EVENT INFO NOT FOUND</p></ng-template>

@@ -8,5 +8,6 @@ export interface MusicEvent {
     sessions?: {
         date: string;
         availability: string;
+        selectedTickets: number;
     }[]
 }
