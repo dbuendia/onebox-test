@@ -1,9 +1,7 @@
 <div class="session-list">
   <h2 class="session-list__title">Sesiones</h2>
 
-  <!-- Puedo usar esto si el sharingService es public -->
-  <!-- <div *ngIf="sharingService.state.details.sessions; else noSessions"> -->
-  <!-- Si no, tengo que ver que sessions esté vacío, cada vez que volvemos a home o algo así, reescribirlo y: -->
+  <!-- TODO -->
   <div *ngIf="musicEvent.sessions; else noSessions">
     <div
       class="session-list__item-content"

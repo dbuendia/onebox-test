@@ -1,5 +1,3 @@
-
-
 export interface Sessions {
     date?: string;
     selectedTickets?: number

@@ -1,6 +1,6 @@
 import { ActivatedRoute } from '@angular/router';
 import { SharingService } from 'src/app/services/sharing.service';
-import { Component, ChangeDetectorRef } from '@angular/core';
+import { Component } from '@angular/core';
 
 @Component({
   selector: 'app-ficha-evento',
@@ -10,13 +10,10 @@ import { Component, ChangeDetectorRef } from '@angular/core';
 export class FichaEventoComponent {
   constructor(
     private sharingService: SharingService,
-    private cdr: ChangeDetectorRef,
     private actRoute: ActivatedRoute,
   ) {}
 
   ngOnInit() {
     this.sharingService.setMusicEvent(this.actRoute.snapshot.params['id'])
   }
-
-
 }

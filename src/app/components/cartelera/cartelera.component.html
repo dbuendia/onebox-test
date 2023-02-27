@@ -1,5 +1,3 @@
-<!-- <button routerLink="/ficha-evento">Comprar / Ficha Evento</button> -->
-
 <div class="sesion-fila" *ngFor="let event of events; let i = index">
   <article class="music-event">
     <h4 class="music-event__title" [routerLink]="['/ficha-evento/', event.id]">

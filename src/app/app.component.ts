@@ -17,7 +17,6 @@ export class AppComponent {
 
   }
 
-  // Al iniciarse la aplicación, seteamos todos los eventos
   ngOnInit() {
     this.sharingService.setMusicEvents();
   }

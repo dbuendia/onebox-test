@@ -28,9 +28,6 @@ export class SesionesComponent {
       this.sharingService.updateMusicEvent(dateEvent, quantity, eventId);
 }
 
-
-  // Con esta función nos suscribimos al observable de details de la store y podemos leer nuestra variable local
-  // Solo details!
   getCurrentEvent() {
     this.sharingService.getCurrentEvent.subscribe((event) => {
       this.musicEvent = event

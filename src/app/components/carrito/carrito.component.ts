@@ -15,7 +15,7 @@ export class CarritoComponent {
   musicEvent: MusicEvent = {};
   carrito: Pedido[] = [];
 
-  constructor(public sharingService: SharingService, private actRoute: ActivatedRoute,  private cdr: ChangeDetectorRef,) { }
+  constructor(public sharingService: SharingService,  private cdr: ChangeDetectorRef) { }
 
   ngOnInit() {
     this.getCarrito();

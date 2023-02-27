@@ -34,8 +34,6 @@ export class SharingService {
 
   constructor(private http: HttpClient) { }
 
-  // 4. Esta función se llama en el ngOnInit de app.component.ts para setear todos los eventos al iniciar la app.
-  // 4.1 (No inicializa ningún details)
   setMusicEvents() {
     this.http.get<MusicEvents[]>(eventsUrl, { observe: 'response' })
     .subscribe((res) => {
@@ -44,7 +42,6 @@ export class SharingService {
     });
   }
 
-  // 5. Esta función se llama al hacer click en un evento concreto desde sesiones.component.ts
   setMusicEvent(id: number) {
     this.setMusicEvents();
     this.http.get<MusicEvent>(`../../assets/data/event-info-${id}.json`, { observe: 'response' })
@@ -70,14 +67,12 @@ export class SharingService {
     if(pedidoInCarrito >= 0) {
       this.state.carrito[pedidoInCarrito].sessions = this.state.carrito[pedidoInCarrito].sessions.map((session, i) => {
         if(session.date === dateEvent) {
-          // Validation 1
           if ((session.selectedTickets + quantity) < 0 ) {
             return {
                 ...session,
                 selectedTickets: session.selectedTickets
             };
           }
-          // Validation 2
           if ((session.selectedTickets + quantity) > Number(this.state.details.sessions[i].availability)) {
             return {
               ...session,

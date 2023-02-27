@@ -8,10 +8,7 @@ import { Component } from '@angular/core';
   styleUrls: ['./cartelera.component.css']
 })
 export class CarteleraComponent {
-    // Creo variable para recibir los eventos
-    // Tengo que meter la interfaz
     events: MusicEvents[] = [];
-
 
     constructor(private sharingService: SharingService) {
     }
@@ -30,13 +27,4 @@ export class CarteleraComponent {
       }
     })
   }
-    // getMusicEvent(id: number) {
-    //   this.sharingService.getMusicEvent(id).then((stateSubscription) => {
-    //     stateSubscription.subscribe((event) => {
-    //       this.musicEvent = event;
-    //       this.cdr.detectChanges(); // o this.cdr.markForCheck(); https://www.youtube.com/watch?v=JVuglXmslv4
-    //     });
-    //   })
-    // }
-  
 }
