@@ -6,7 +6,7 @@ import { AppComponent } from './app.component';
 import { HeaderComponent } from './shared/header/header.component';
 import { CarteleraComponent } from './components/cartelera/cartelera.component';
 import { FichaEventoComponent } from './components/ficha-evento/ficha-evento.component';
-import { CarritoComponent } from './carrito/carrito.component';
+import { CarritoComponent } from './components/carrito/carrito.component';
 import { SesionesComponent } from './sesiones/sesiones.component';
 import { HttpClientModule } from '@angular/common/http';
 import { NotFoundComponent } from './components/not-found/not-found.component';

@@ -1,7 +1,7 @@
-import { Pedido } from '../interfaces/pedido';
+import { Pedido } from '../../interfaces/pedido';
 import { ChangeDetectionStrategy, ChangeDetectorRef, Component } from '@angular/core';
-import { SharingService } from '../services/sharing.service';
-import { MusicEvent } from '../interfaces/music-event';
+import { SharingService } from '../../services/sharing.service';
+import { MusicEvent } from '../../interfaces/music-event';
 import { ActivatedRoute } from '@angular/router';
 
 @Component({
