@@ -1,31 +1,25 @@
 import { Injectable } from '@angular/core';
-import { BehaviorSubject, catchError, of } from 'rxjs';
+import { BehaviorSubject } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
 import { MusicEvents } from '../interfaces/music-events';
 import { MusicEvent } from '../interfaces/music-event';
-import { Carrito } from '../interfaces/carrito';
+import { Pedido } from '../interfaces/pedido';
 const eventsUrl = "../../assets/data/events.json";
-
 
 @Injectable({
   providedIn: 'root'
 })
 export class SharingService {
-  // 1. Vamos a recuperar todo el json en un objeto local como estado.
   state: {
-    events?: MusicEvents[],
+    events: MusicEvents[],
     details: MusicEvent,
-    carrito: Carrito[]
+    carrito: Pedido[]
   } = {events: [], details: {}, carrito: []};
 
-  // 2. Creo un BehavourSubject para contener los eventos
-  private events: BehaviorSubject<MusicEvents[]> = new BehaviorSubject<MusicEvents[]>(this.state.events as MusicEvents[]);
-  private details: BehaviorSubject<MusicEvent> = new BehaviorSubject<MusicEvent>(this.state.details as MusicEvent);
-  private carrito: BehaviorSubject<Carrito[]> = new BehaviorSubject<Carrito[]>(this.state.carrito);
+  private events: BehaviorSubject<MusicEvents[]> = new BehaviorSubject<MusicEvents[]>(this.state.events);
+  private details: BehaviorSubject<MusicEvent> = new BehaviorSubject<MusicEvent>(this.state.details);
+  private carrito: BehaviorSubject<Pedido[]> = new BehaviorSubject<Pedido[]>(this.state.carrito);
 
-  selectedTicket: number = 0;
-
-  // 3. Convertimos los array de eventos en observables
   get getEvents() {
     return this.events.asObservable();
   }
@@ -54,121 +48,72 @@ export class SharingService {
   setMusicEvent(id: number) {
     this.setMusicEvents();
     this.http.get<MusicEvent>(`../../assets/data/event-info-${id}.json`, { observe: 'response' })
-    //.pipe(catchError(elem: any))
     .subscribe((res) => {
-
         const musicEvent = res?.body;
-        let modifiedSessions: any;
-        // No podemos setear en 0 directamente, porque si no se borran los datos y necesitamos que se mantengan.
-        // tengo que añadir esta propiedad igualmente, eso sí.
-        // Puedo añadirla solo si no existe?
-        // SI SELECTED TICKETS NO EXISTE:
-        musicEvent?.sessions?.map((elem) => {
-          console.log(elem.selectedTickets === undefined)
-          // AÑADO LA PROPIEDAD EN 0
-          if (elem.selectedTickets === undefined) {
-          modifiedSessions = musicEvent?.sessions?.map((elem) => {
-            return {...elem, selectedTickets: 0}
+
+          let modifiedSessions = musicEvent?.sessions?.map((elem) => {
+            return {...elem, selectedTickets: 0, id: musicEvent?.event.id}
           })
-        } else {
-          // NUNCA LLEGO A ESTE CONSOLE LOG!!! Por que?
-          console.log("selected tickets ya existe")
-          modifiedSessions = musicEvent?.sessions;
-        }
-      });
-        // modifiedSessions = musicEvent?.sessions?.map(
-        //   (elem) => {
-        //   return { ...elem, selectedTickets: 0}
-        // })
 
-        // const noModifiedSessions = musicEvent?.sessions;
-
-        // Quiero tener los details que haya ido seleccionado siempre.
         this.state.details = {
           event: musicEvent?.event,
           sessions: modifiedSessions
         }
-
-
       this.details.next(this.state.details);
-
     },
-    // Si la respuesta de la API no existe, seteo los details en {}
-    //err => {console.log(err); this.details.next(this.state.details = {})},
-    //() => console.log('HTTP request completed.')
     );
   }
 
+  updateMusicEvent(dateEvent: string, quantity: number, eventId?: string) {
+    const pedidoInCarrito = this.state.carrito.findIndex((pedido) => pedido.id === eventId)
 
-  updateMusicEvent(dateEvent: string, quantity: number) {
-
-
-     // le logic for not choosing validacion cheesy
-    // const updatedMusicEvent = this.state.details?.sessions?.map((elem) => {
-    //   if (elem.date === dateEvent) {
-    //     // si ya es 0, no dejamos que baje mas
-    //     if((elem.selectedTickets + quantity) < 0) { return elem }
-
-    //     if((elem.selectedTickets + quantity) > Number(elem.availability)) {
-    //       return elem;
-    //     }
-    //     return { ...elem, selectedTickets: elem.selectedTickets + quantity };
-    //   }
-    //   return elem;
-    // });
-
-    if(this.state.carrito.length > 0) {
-
-    const newPedidos = this.state.carrito.map((pedido) => {
-      if(pedido.titulo === this.state.details.event?.title) {
-        const selectedSession = pedido.sessions?.map((detail) => {
-          if(detail.date === dateEvent) {
+    if(pedidoInCarrito >= 0) {
+      this.state.carrito[pedidoInCarrito].sessions = this.state.carrito[pedidoInCarrito].sessions.map((session, i) => {
+        if(session.date === dateEvent) {
+          // Validation 1
+          if ((session.selectedTickets + quantity) < 0 ) {
             return {
-              ...detail,
-              selectedTickets: (detail?.selectedTickets || 0) + quantity
+                ...session,
+                selectedTickets: session.selectedTickets
+            };
+          }
+          // Validation 2
+          if ((session.selectedTickets + quantity) > Number(this.state.details.sessions[i].availability)) {
+            return {
+              ...session,
+              selectedTickets: session.selectedTickets
+          };
+          }
+          return {
+            ...session,
+            selectedTickets: quantity === 0 ? 0 : session.selectedTickets + quantity
+          }
+        }
+          return session;
+        })
+        this.state.carrito = this.state.carrito.filter((pedido) => {
+          const suma = pedido.sessions.reduce((acc, next) => {
+            return (acc += next.selectedTickets)
+          }, 0);
+          return suma > 0
+        })
+    } else {
+      const artistaNewPedido = {
+        id: eventId,
+        titulo: this.state.details.event.title,
+        sessions: this.state.details.sessions.map((session) => {
+          if(session.date === dateEvent) {
+            return {
+              ...session,
+              selectedTickets: quantity,
+              id: eventId,
             }
           }
-          return detail;
+          return session;
         })
-        return {
-          ...pedido,
-          sessions: selectedSession
-        }
-      } else {
-        return pedido;
       }
-    })
-    this.state.carrito = newPedidos;
-
-  } else {
-     const pedido = {
-      titulo: this.state.details.event?.title,
-      sessions: [{
-        date: dateEvent,
-        selectedTickets: quantity
-      }]
+     this.state.carrito.push(artistaNewPedido);
     }
-    this.state.carrito.push(pedido)
-  }
-
-  debugger;
-
-
-    // console.log(newPedidos)
-
-
-    // titulo: string;
-    // sessions: {
-    //     date: string;
-    //     selectedTickets: number
-    // }[]
-    // const pedido = {
-    //   titulo: this.state.details.event?.title,
-    //   sessions
-    // }
-    // this.state.carrito.push(pedido)
-    // // this.state.details.sessions = updatedMusicEvent;
-    // this.details.next(this.state.details); ???????
-
+    this.carrito.next(this.state.carrito);
   }
 }

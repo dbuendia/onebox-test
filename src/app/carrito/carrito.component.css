@@ -1,33 +1,36 @@
 .carrito {
-    text-align: center;
+    text-align: left;
     border: 1px solid var(--grey);
     height: 100%;
 }
 
 .carrito__title {
     margin: 10px 15px;
+    text-align: center;
 }
 
-.carrito__event-title {
-    text-align: left;
-    margin-left: 30px;
+
+.pedido {
+    padding: 20px;
 }
 
-.carrito__date {
-    margin: 10px 30px;
-    gap: 10px;
+.pedido__session {
+    display: flex;
+    justify-content: center;
 }
 
-.carrito__selected-tickets div {
+.pedido__selected-tickets {
     display: flex;
     justify-content: space-between;
+    width: 100%;
+    gap: 10px;
+    margin-top: 10px;
 }
 
-.carrito__quantity {
-    display: flex;
-    justify-content: space-around;
-    width: 50px;
+.pedido__date {
+    flex-grow: 1;
 }
-.carrito__trash-icon {
+
+.pedido__trash-icon {
     width: 20px;
 }

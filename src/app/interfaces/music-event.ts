@@ -9,5 +9,6 @@ export interface MusicEvent {
         date: string;
         availability: string;
         selectedTickets: number;
+        id: string;
     }[]
 }

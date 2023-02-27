@@ -1,19 +1,23 @@
 <div class="carrito">
   <h2 class="carrito__title">Carrito</h2>
-  <br />
-  <!-- If any of the details has selectedtickets > 0 -->
-  <h3>{{ sharingService.state.details.event?.title }}</h3>
-  <div
-    class="carrito__selected-tickets"
-    *ngFor="let sessions of musicEvent.sessions; let i = index"
-  >
-    <div class="carrito__date" *ngIf="sessions.selectedTickets > 0">
-      <div>{{ sessions.date | date : "dd/MM/yyyy" }}</div>
-      <div class="carrito__quantity">
-        x{{ sessions.selectedTickets
-        }}<img
-          class="carrito__trash-icon"
-          (click)="sharingService.updateMusicEvent(sessions.date, -1)"
+  <div class="pedido" *ngFor="let pedido of carrito; let i = index">
+    <p class="pedido__title">{{ pedido.titulo }}</p>
+    <div
+      class="pedido__session"
+      *ngFor="let session of pedido.sessions; let i = index"
+    >
+      <div
+        class="pedido__selected-tickets"
+        *ngIf="session.selectedTickets && session.selectedTickets > 0"
+      >
+        <p class="pedido__date">{{ session.date | date : "dd/MM/yyyy" }}</p>
+
+        <p>{{ session.selectedTickets }}</p>
+        <img
+          class="pedido__trash-icon"
+          (click)="
+            sharingService.updateMusicEvent(session.date, -1, session.id)
+          "
           src="../../assets/img/trash.png"
         />
       </div>

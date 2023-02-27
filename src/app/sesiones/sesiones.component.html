@@ -1,8 +1,6 @@
 <div class="session-list">
   <h2 class="session-list__title">Sesiones</h2>
 
-  <!-- <div>{{ musicEvent | json }}</div> -->
-  <!-- <h1>{{ musicEvent.event?.id }}</h1> -->
   <!-- Puedo usar esto si el sharingService es public -->
   <!-- <div *ngIf="sharingService.state.details.sessions; else noSessions"> -->
   <!-- Si no, tengo que ver que sessions esté vacío, cada vez que volvemos a home o algo así, reescribirlo y: -->
@@ -17,11 +15,17 @@
       </div>
 
       <div class="session-list__actions">
-        <button class="btn" (click)="setSelectedTicket(sessions.date, -1)">
+        <button
+          class="btn"
+          (click)="setSelectedTicket(sessions.date, -1, sessions.id)"
+        >
           -
         </button>
-        {{ sessions.selectedTickets }}
-        <button class="btn" (click)="setSelectedTicket(sessions.date, 1)">
+        {{ 0 }}
+        <button
+          class="btn"
+          (click)="setSelectedTicket(sessions.date, 1, sessions.id)"
+        >
           +
         </button>
       </div>
