@@ -1,6 +1,5 @@
 import { Component } from '@angular/core';
 import { SharingService } from './services/sharing.service';
-import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-root',
@@ -11,8 +10,7 @@ export class AppComponent {
   title = 'onebox';
 
   constructor(
-    private sharingService: SharingService,
-    private router: Router
+    private sharingService: SharingService
     ) {
 
   }

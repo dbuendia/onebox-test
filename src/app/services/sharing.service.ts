@@ -37,16 +37,15 @@ export class SharingService {
   setMusicEvents() {
     this.http.get<MusicEvents[]>(eventsUrl, { observe: 'response' })
     .subscribe((res) => {
-      this.state.events = res.body as MusicEvents[];
-      this.events.next(this.state.events as MusicEvents[]);
+      this.state.events = res.body;
+      this.events.next(this.state.events);
     });
   }
 
   setMusicEvent(id: number) {
-    this.setMusicEvents();
     this.http.get<MusicEvent>(`../../assets/data/event-info-${id}.json`, { observe: 'response' })
     .subscribe((res) => {
-        const musicEvent = res?.body;
+      const musicEvent = res?.body;
 
           let modifiedSessions = musicEvent?.sessions?.map((elem) => {
             return {...elem, selectedTickets: 0, id: musicEvent?.event.id}
@@ -58,7 +57,7 @@ export class SharingService {
         }
       this.details.next(this.state.details);
     },
-    );
+    )
   }
 
   updateMusicEvent(dateEvent: string, quantity: number, eventId?: string) {
@@ -70,7 +69,7 @@ export class SharingService {
           if ((session.selectedTickets + quantity) < 0 ) {
             return {
                 ...session,
-                selectedTickets: session.selectedTickets
+                selectedTickets: 0
             };
           }
           if ((session.selectedTickets + quantity) > Number(this.state.details.sessions[i].availability)) {
@@ -81,7 +80,7 @@ export class SharingService {
           }
           return {
             ...session,
-            selectedTickets: quantity === 0 ? 0 : session.selectedTickets + quantity
+            selectedTickets: session.selectedTickets + quantity
           }
         }
           return session;

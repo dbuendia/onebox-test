@@ -1,7 +1,5 @@
 <div class="session-list">
   <h2 class="session-list__title">Sesiones</h2>
-
-  <!-- TODO -->
   <div *ngIf="musicEvent.sessions; else noSessions">
     <div
       class="session-list__item-content"
@@ -19,7 +17,7 @@
         >
           -
         </button>
-        {{ 0 }}
+        {{ sessions.selectedTickets }}
         <button
           class="btn"
           (click)="setSelectedTicket(sessions.date, 1, sessions.id)"

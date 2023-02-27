@@ -1,7 +1,6 @@
 import { ChangeDetectionStrategy, ChangeDetectorRef, Component } from '@angular/core';
 import { SharingService } from '../services/sharing.service';
 import { MusicEvent } from '../interfaces/music-event';
-import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-sesiones',
@@ -11,13 +10,10 @@ import { ActivatedRoute } from '@angular/router';
 })
 export class SesionesComponent {
   musicEvent: MusicEvent = {};
-  eventId: number = 0;
-  selectedTickets: number = 0;
 
   constructor(
     private sharingService: SharingService,
-    private cdr: ChangeDetectorRef,
-    private actRoute: ActivatedRoute) {
+    private cdr: ChangeDetectorRef) {
   }
 
   ngOnInit() {
